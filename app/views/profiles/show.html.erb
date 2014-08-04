@@ -1,0 +1,11 @@
+<div class="page-header">
+	<h2><%= @user.full_name %></h2>
+</div>
+<% if @statuses %>
+	<% @statuses.each do |status| %>
+		<div class="well">
+			<p><%= status.content %></p>
+			<%= link_to time_ago_in_words(status.created_at)+" ago",status_path(status) %>
+		</div>
+	<%end%>
+<%end%>

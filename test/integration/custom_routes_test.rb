@@ -20,4 +20,9 @@ class CustomRoutesTest < ActionDispatch::IntegrationTest
   	assert_redirected_to '/'
   end
 
+  test "check /profile_name response is success" do
+    get '/praveenkumar'
+    assert_response :success
+  end
+
 end
