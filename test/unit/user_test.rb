@@ -4,6 +4,9 @@ class UserTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
+  should have_many(:user_friendships)
+  should have_many(:friends)
+  
   test 'a user should enter first_name' do
   	user = User.new
   	assert !user.save
@@ -35,5 +38,19 @@ class UserTest < ActiveSupport::TestCase
   	assert !user.save
   	assert !user.errors[:profile_name].empty?
   	assert user.errors[:profile_name].include?('Profile name must be formatted correctly')
+  end
+
+  test "list of friends works without raising exception" do
+    assert_nothing_raised do
+      users(:praveen).friends
+    end
+  end
+
+  test "add friends without raising exception" do
+    assert_nothing_raised do
+      users(:praveen).friends << users(:don)
+      users(:praveen).friends.reload
+      users(:praveen).friends.include?(users(:don))
+    end
   end
 end
